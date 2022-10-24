@@ -10,14 +10,16 @@ const usersRouter = require("./routers/users");
 const ordersRouter = require("./routers/orders");
 const categoriesRouter = require("./routers/categories");
 const api = process.env.API_URL;
-
+const authJwt = require("./helpers/jwt");
+const errorHandler = require("./helpers/error-handler");
 app.use(cors());
 app.options("*", cors());
 
 //middlware
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
-
+app.use(authJwt());
+app.use(errorHandler);
 //Routers
 app.use(`${api}/products`, productsRouter);
 app.use(`${api}/orders`, ordersRouter);
