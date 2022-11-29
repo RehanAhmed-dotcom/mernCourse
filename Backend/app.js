@@ -12,7 +12,8 @@ const categoriesRouter = require("./routers/categories");
 const api = process.env.API_URL;
 const authJwt = require("./helpers/jwt");
 const errorHandler = require("./helpers/error-handler");
-app.use(cors());
+// app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.options("*", cors());
 
 //middlware
@@ -35,7 +36,12 @@ mongoose
     console.log("err", err);
   });
 
-app.listen(3000, () => {
-  console.log("api", api);
-  console.log("server is running https://localhost:3000");
+// app.listen(3000, () => {
+//   console.log("api", api);
+//   console.log("server is running https://localhost:3000");
+// });
+
+var server = app.listen(process.env.PORT || 3000, function () {
+  var port = server.address().port;
+  console.log("Express working on port" + port);
 });
